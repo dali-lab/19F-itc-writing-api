@@ -1,0 +1,54 @@
+oracle: &oracle
+  adapter: oracle_enhanced
+  host: oracle-preprod.dartmouth.edu # dev, preprod
+  username: wag_replaceappname
+
+sqlite: &sqlite
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+postgres: &postgres
+  adapter: postgresql
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'].to_i %>
+  database: <%= ENV['DB_DATABASE'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= begin IO.read(ENV['DB_PASSWORD']).chomp rescue "" end %>
+
+development:
+  <<: *sqlite
+  database: db/development.sqlite3
+
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *sqlite
+  database: db/test.sqlite3
+
+dev:
+  <<: *oracle
+  database: /banner_dev.dartmouth.edu # dev (zinc)
+  password: zinc!123
+
+preprod:
+  <<: *oracle
+  database: /banner_preprod.dartmouth.edu # preprod (iron)
+  password: iron!123
+
+production:
+  <<: *oracle
+  database: /banner_preprod.dartmouth.edu # preprod (iron)
+  password: iron!123
+  # <<: *oracle
+  # host: oracle-prod.dartmouth.edu # production
+  # database: /banner.dartmouth.edu # prod (copper)
+  # password: <%= begin IO.read("/misc_apps/ruby_on_rails/replaceappname/production/db_password.txt").chomp rescue "" end %>
+
+host: <%= ENV['DB_HOST'] %>
+port: <%= ENV['DB_PORT'].to_i %>
+database: <%= ENV['DB_DATABASE'] %>
+username: <%= ENV['DB_USERNAME'] %>
+password: <%= begin IO.read(ENV['DB_PASSWORD']).chomp rescue "" end %>

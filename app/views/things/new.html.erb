@@ -1,0 +1,88 @@
+<% title "Add a New Thing" %>
+
+<div id="new-thing class="row"">
+    <div class="col-sm-11"> 
+
+        <%= form_for(:thing, :url => create_path, :html => { :class=>"form-horizontal" }) do |f| %>
+
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+        
+            <div class="form-group">
+                <%= f.label :title, "Thing Name *", class: "col-sm-3 control-label" %>
+                <div class="col-sm-9">
+                    <%= f.text_field :title, :size => 80 %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :thing_type, "Thing Type *", class: "col-sm-3 control-label" %>
+                <div class="col-sm-9">
+                    <%= select_tag :thing_type, options_for_select([['Animal', 1], ['Vegetable', 2], ['Mineral', 3]]), {:include_blank => true} %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :contact_information, "Contact Information", class: "col-sm-3 control-label" %>
+                <div class="col-sm-9">
+                    <%= f.text_area :contact_information, :size => '80x4' %>
+                    <p class="help-block">Note: If you leave this blank, users will be instructed to contact you via your dartmouth.edu email account.</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :season, "Season(s)", class: "col-sm-3 control-label" %>
+                <div class="col-sm-9">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="final[season][]" value="Fall" id="season_0"  /> Fall
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="final[season][]" value="Winter" id="season_1" /> Winter
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="final[season][]" value="Spring" id="season_2" /> Spring
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="final[season][]" value="Summer" id="season_3" /> Summer
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :time_commitment, "Time Commitment", class: "col-sm-3 control-label" %>
+                <div class="col-sm-9">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="final[time_commitment][]" value="Full-time" id="final_time_commitment_0"  /> Full-time
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="final[time_commitment][]" value="Part-time" id="final_time_commitment_1" /> Part-time
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group button_row">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button class="button btn btn-primary" type="submit" data-disable-with="Submitting...">
+                        Create
+                    </button>
+                    <a class="btn btn-default" href="<%= root_path %>">Cancel</a>
+                </div>
+            </div>
+
+        <% end %>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+

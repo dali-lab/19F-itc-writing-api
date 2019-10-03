@@ -1,0 +1,323 @@
+$dark_color: #133625;
+$mid_color: #1B4D35;
+$light_color: #2a7752;
+$link_color: #c8ecda;
+
+// ---------------------------------------------
+
+@mixin background_gradient($from, $to) {
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($from), to($to));
+  background-image: -webkit-linear-gradient(top, $from, $to);
+  background-image: -moz-linear-gradient(top, $from, $to);
+  background-image: -o-linear-gradient(top, $from, $to);
+  background-image: linear-gradient(to bottom, $from, $to);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#{$from}', endColorstr='#{$to}');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}', GradientType=0)";
+}
+
+@mixin box_shadow($color) {
+  -webkit-box-shadow: inset 0 1px 0 $color;
+  -moz-box-shadow: inset 0 1px 0 $color;
+  box-shadow: inset 0 1px 0 $color;
+}
+
+@mixin rounded_corners($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin rounded_top_corners($radius) {
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+// ---------------------------------------------
+
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font: 12px/1.7em "Open Sans", arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a, a:hover {
+  color: $light_color;
+}
+
+select {
+  // NOTE - this changes the color of the dropdown arrows in Firefox! Please leave
+  @include rounded_corners(0);
+}
+
+#page-header {
+  flex: 0 0 auto;
+  color: white;
+}
+
+#user-details {
+  position: absolute;
+  top: 7px;
+  right: 20px;
+  font-size: 11px;
+  z-index: 50;
+}
+
+#user-details i.fa-user {
+  margin-right: 5px;
+}
+
+#user-details i.fa-sign-out-alt {
+  font-size: 14px;
+  transform: translateY(2px);
+}
+
+#user-details a {
+  margin-left: 5px;
+  color: $link_color;
+}
+
+#topbar {
+  padding: 8px;
+  height: 37.4px;
+  background: $dark_color;
+  border-bottom: 1px solid #000000;
+}
+
+#headerbar {
+  color: white;
+  background: $mid_color;
+  @include box_shadow($light_color);
+}
+
+#headerbar a {
+  color: white;
+  font-weight: bold;
+}
+
+#headerbar li a {
+  /* Making these look like tabs */
+  padding: 10px 12px;
+  margin-left: 5px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  @include background_gradient($mid_color, $dark_color);
+  // background-image: linear-gradient(to bottom, $mid_color, $dark_color);
+  @include box_shadow($light_color);
+  @include rounded_top_corners(4px);
+}
+
+#headerbar li a:hover {
+  @include background_gradient(darken($mid_color, 3), darken($mid_color, 9));
+}
+
+#headerbar li.active a,
+#headerbar li.active a:hover {
+  color: $dark_color;
+  background: white;
+}
+
+#main-nav {
+  border: 0;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  @include box_shadow($light_color);
+  background: $mid_color;
+}
+
+#main-nav .navbar-brand .logo {
+  display: inline-block;
+  padding: 16px 15px 16px 0;
+  border-right: 1px solid white;
+}
+
+#main-nav .navbar-brand .app-name {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 18px;
+  // Fine tuning of location to make text bottom align with logo
+  transform: translate(0, 4px);
+}
+
+#main-nav .navbar-toggle {
+  float: left;
+  border: 0;
+  margin: 0;
+  margin-top: 6px;
+  color: $link_color;
+}
+
+#main-nav .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+	background-color: #ddd;
+  color: $mid_color;
+}
+
+#header-tabs {
+  // Fine tuning of location to make tab bottoms align with next section
+  transform: translate(0, 18px);
+  border-bottom: none;
+}
+
+// hover formatting for tabs
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+  border-color: transparent;
+}
+
+#page-area {
+  flex-grow: 1;
+}
+
+#masthead {
+  padding: 20px 0;
+  color: #333333;
+  background-color: #f8f8f8;
+  @include background_gradient(#fff, #ededed);
+  border-bottom: 1px solid #c9c9c9;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+  text-shadow: 1px 1px 2px #FFF;
+}
+
+#masthead h1 {
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+#content {
+  margin-top: 2em;
+  margin-bottom: 3em;
+}
+
+#page-nav {
+  @include background_gradient(lighten($mid_color, 8), darken($mid_color, 2));
+  font-weight: bold;
+  @include rounded_corners(0px);
+  border: 1px solid darken($mid_color, 6);
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+#page-nav li {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-right: 1px solid #FFF;
+  float: left;
+}
+
+#page-nav li:last-child {
+  border-right: none;
+}
+
+#page-nav li div.action_link {
+  padding: 10px;
+}
+
+#page-nav li a {
+  color: #FFF;
+  text-shadow: none;
+}
+
+#page-nav li a:hover {
+  color: lighten($mid_color, 65);
+  background-color: transparent;
+}
+
+#page-nav li a:focus {
+  color: #FFF;
+  background-color: transparent;
+  outline: none;
+}
+
+#page-footer {
+  padding: 20px;
+  line-height: 19px;
+  height: 60px;
+  flex: 0 0 60px; /* This line stops fixed panes from shrinking when you make the window smaller */
+  background-color: $dark_color;
+  color: white;
+  border-top: 1px solid black;
+  @include box_shadow($light_color);
+}
+
+#page-footer .version {
+  margin-left: 10px;
+}
+
+#page-footer a {
+  color: $link_color;
+}
+
+// Use our images instead of the DataTable standard ones and left-align
+table.dataTable thead .sorting_asc {
+  background: url("sort_asc.png")  no-repeat center left;
+}
+
+table.dataTable thead .sorting_desc {
+  background: url("sort_desc.png")  no-repeat center left;
+}
+
+// left-justify unsorted image
+table.dataTable thead .sorting {
+  background: url("http://cdn.datatables.net/1.10.0/images/sort_both.png") no-repeat center left;
+}
+
+@media (max-width: 767px) {
+  #header-tabs {
+    transform: none;
+    margin-top: 5px;
+    border-top: 1px solid white;
+  }
+
+  #header-tabs li {
+    display: block;
+    width: 100%;
+  }
+
+  #header-tabs li a {
+    /* not tabs any more */
+    padding: 12px;
+    margin-left: 0;
+    margin-bottom: 5px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    background-image: none;
+    box-shadow: none;
+    @include rounded_corners(4px);
+  }
+}
+
+@media (max-width: 550px) {
+  #user-details span.hide-medium {
+    display: none;
+  }
+
+  #main-nav .navbar-brand .logo {
+    display: none;
+  }
+  #main-nav .navbar-brand .app-name {
+    transform: none;
+    margin: 0;
+  }
+}

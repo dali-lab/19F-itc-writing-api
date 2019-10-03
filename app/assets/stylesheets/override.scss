@@ -1,0 +1,39 @@
+// --------------------------------------------------------------------
+//
+// [override.scss]
+//
+// 	Project:		Tenplate Application
+// 	Version:		1.0
+// 	Last change:	10/05/2016
+//
+// Override the standard Dartmouth styles for this application only
+//
+// ---------------------------------------------------------------------
+// add italic to existing bootstrap class
+.help-block {
+    font-style: italic;
+}
+// labels on show pages
+.item_label {
+    text-align: right;
+}
+// values on show pages
+.item_value {
+    margin-bottom: 5px;
+}
+// buttons on bottom of pages (not used in modals)
+.button_row {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+// sweetalerts buttons
+.swal_button {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+// allow additional content in masthead 
+.full_width_masthead {
+    display: inline;
+}
+
+

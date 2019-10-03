@@ -1,0 +1,78 @@
+- title "replaceappname main page"
+- content_for :head_script do
+  javascript:
+    function emailFunction() {
+      swal({
+          title: "Warning",
+          type:'warning',
+          html: 'You are about to send an email to yourself.<br/><br/><b>Are you sure?</b> ',
+          confirmButtonText: "Yes",
+          confirmButtonClass: "btn btn-danger swal_button",
+          cancelButtonClass: "btn btn-default swal_button",
+          buttonsStyling: false,
+          showCancelButton: true,
+          reverseButtons: true,
+          focusCancel: true
+        }).then(function(){
+            window.location.href = "#{email_path}";
+        }, function(dismiss){
+          swal({
+            title:"Canceled",
+            type:'info',
+            text: "Close call, email was not sent.",
+            confirmButtonText: "Phew!",
+            confirmButtonClass: "btn btn-primary swal_button",
+            buttonsStyling: false
+          })
+      })
+    }
+
+- content_for :page_actions do
+  li
+    div.action_link = link_to "Home", root_path
+  /Extra page level actions go here
+  li
+    div.action_link = link_to "New", new_path
+  li
+    div.action_link = link_to "Send Email", "javascript:emailFunction()"
+
+/Demo table for testing page length and scrolling
+table.table.sortable
+  thead
+    tr
+      th Thing
+      th Description
+      th Date
+  tbody
+    - 20.times do
+      tr
+        - n = (65 + rand(25)).chr
+        td = link_to 'Thing ' + n, show_path
+        td = 'Thing description ' + n
+        - d = (Date.today + rand(60).days)
+        td data-order=d.strftime('%Y-%m-%d') = d.strftime('%d %b %Y')
+
+/Modal dialog for Action button
+
+button.btn.btn-primary type="button" data-toggle="modal" data-target="#exampleModal" Launch demo modal
+
+div.modal.fade id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  div.modal-dialog role="document"
+    form.form-horizontal url=root_path
+      div.modal-content
+        div.modal-header
+          h3#exampleModalLabel.modal-title Modal title
+          button.close type="button" data-dismiss="modal" aria-label="Close"
+            span aria-hidden="true" &times;
+        div.modal-body
+          div.row
+            div.col-sm-1
+            div.col-sm-10
+              div.form-group
+                label.col-sm-3.control-label NetID
+                div.col-sm-9
+                  input
+            div.col-sm-1
+        div.modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal" Cancel
+          button.btn.btn-primary type="submit" Save
